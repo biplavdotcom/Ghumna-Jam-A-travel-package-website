@@ -38,14 +38,6 @@ def register(request):
     email=serializer.validated_data.get('email')
     password=serializer.validated_data.get('password')
     user=User.objects.create_user(email=email,password=password)
-    if user:
-        send_mail(
-            "Welcome To Ghumna Jam ! ",
-            "Hello " + user.email + " , Let's Book a Perfect Trip !",
-            [user.email],
-            
-            
-        )   
-        return Response('User has been registered')
-    
-    return Response('Something went wrong')
+    if user :
+        return Response('user has been successfully created !!!')
+    return Response('Sorry , something went wrong !!!')
