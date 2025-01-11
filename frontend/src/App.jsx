@@ -7,6 +7,8 @@ import Discover from "./pages/Discover";
 import DiscoverDetails from "./pages/DiscoverDetails";
 import PlacesRoute from "./pages/PlacesRoute";
 import NoPage from "./pages/NoPage";
+import Login from "./component/Login";
+import Register from "./component/Register";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
             <Route path="/blogs" element={<Discover />} />
             <Route path="/blogs/:id" element={<DiscoverDetails />} />
             <Route path="/places" element={<PlacesRoute />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

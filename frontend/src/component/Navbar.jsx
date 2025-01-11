@@ -16,11 +16,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo Section */}
           <Link to="/" className="flex-shrink-0">
-            <img
-              src={LogoImg}
-              className="h-20 md:h-24"
-              alt="logo"
-            />
+            <img src={LogoImg} className="h-20 md:h-24" alt="logo" />
           </Link>
 
           {/* Navigation Links */}
@@ -38,20 +34,16 @@ const Navbar = () => {
 
           {/* Buttons Section */}
           <div className="hidden md:flex space-x-4">
-            <Button
-              variant="outlined"
-              rounded="full"
-              className="px-6 py-2"
-            >
-             Sign Up
-            </Button>
-            <Button
-              variant="gradient"
-              rounded="full"
-              className="px-6 py-2"
-            >
-              Login
-            </Button>
+            <NavLink to="/Register">
+              <Button variant="outlined" rounded="full" className="px-6 py-2">
+                Sign Up
+              </Button>
+            </NavLink>
+            <NavLink to="/Login">
+              <Button variant="gradient" rounded="full" className="px-6 py-2">
+                Login
+              </Button>
+            </NavLink>
           </div>
 
           {/* Mobile Menu Icon */}
