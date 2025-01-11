@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 sm:py-4">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
-          <Link to="/" className="flex-shrink-0">
+          <Link to="/home" className="flex-shrink-0">
             <img src={LogoImg} className="h-20 md:h-24" alt="logo" />
           </Link>
 
