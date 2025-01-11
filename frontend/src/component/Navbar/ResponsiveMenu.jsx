@@ -62,7 +62,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
           className="w-full rounded-full text-black border-black"
           ripple={true}
         >
-          Register
+          Sign Up
         </Button>
         <Button
           variant="gradient"
@@ -70,7 +70,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
           className="w-full rounded-full"
           ripple={true}
         >
-          Sign Up
+          Login
         </Button>
       </div>
       
