@@ -56,14 +56,14 @@ const Login = () => {
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md mt-4"
+          className="w-full bg-black text-white py-2 rounded-md mt-4"
         >
           Login
         </button>
       </form>
       <p className="mt-4 text-center">
         Don't have an account?{" "}
-        <Link to="/register" className="text-blue-500">Register here</Link>
+        <Link to="/register" className="text-gray-500">Register here</Link>
       </p>
     </div>
   );

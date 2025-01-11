@@ -4,6 +4,7 @@ import restro from "../../assets/pictures/restro.png";
 import plane from "../../assets/pictures/airplane.png";
 import packages from "../../assets/pictures/package.png";
 import lens from "../../assets/pictures/lens-svgrepo-com.png";
+import introimg from "../../assets/pictures/images.jpg"
 
 const menuItems = [
   { label: "Hotels", icon: bed },
@@ -41,6 +42,11 @@ const Menubar = () => {
           aria-label="Search for places, hotels, or flights"
         />
       </form>
+
+      <div className="p-12 md:p-16">
+        <img src={introimg} className="h-auto md:h-screen md:w-screen rounded-xl" />
+
+      </div>
     </div>
   );
 };
