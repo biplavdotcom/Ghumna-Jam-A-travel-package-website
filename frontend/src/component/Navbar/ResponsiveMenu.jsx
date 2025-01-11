@@ -6,7 +6,7 @@ import { Button } from "@material-tailwind/react"; // Import Material Tailwind B
 
 const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
   const navItems = [
-    { label: "Home", to: "/" },
+    { label: "Home", to: "/home" },
     { label: "Discover", to: "/discover" },
     { label: "Places", to: "/places" },
     { label: "Contact", to: "/contact" },
