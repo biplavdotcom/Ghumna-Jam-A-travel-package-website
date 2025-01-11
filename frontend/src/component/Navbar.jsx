@@ -43,14 +43,14 @@ const Navbar = () => {
               rounded="full"
               className="px-6 py-2"
             >
-              Register
+             Sign Up
             </Button>
             <Button
               variant="gradient"
               rounded="full"
               className="px-6 py-2"
             >
-              Sign Up
+              Login
             </Button>
           </div>
 
