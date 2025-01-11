@@ -25,7 +25,9 @@ const Navbar = () => {
               {["Home", "Discover", "Places", "Contact"].map((item, index) => (
                 <li key={index} className="py-2 ">
                   <NavLink to={`/${item.toLowerCase()}`}>
-                    <Button variant="text" size="lg">{item}</Button>
+                    <Button variant="text" size="lg">
+                      {item}
+                    </Button>
                   </NavLink>
                 </li>
               ))}
@@ -35,12 +37,22 @@ const Navbar = () => {
           {/* Buttons Section */}
           <div className="hidden md:flex space-x-4">
             <NavLink to="/Register">
-              <Button variant="outlined" rounded="full" size="lg" className="px-6 py-2">
+              <Button
+                variant="outlined"
+                rounded="full"
+                size="lg"
+                className="px-6 py-2"
+              >
                 Sign Up
               </Button>
             </NavLink>
             <NavLink to="/Login">
-              <Button variant="gradient" rounded="full" size="lg" className="px-6 py-2">
+              <Button
+                variant="gradient"
+                rounded="full"
+                size="lg"
+                className="px-6 py-2"
+              >
                 Login
               </Button>
             </NavLink>
