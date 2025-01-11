@@ -74,7 +74,7 @@ const Register = () => {
         {message && <p className="text-green-500 text-sm">{message}</p>}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md mt-4"
+          className="w-full bg-gray-900 text-white py-2 rounded-md mt-4"
         >
           Sign Up
         </button>
