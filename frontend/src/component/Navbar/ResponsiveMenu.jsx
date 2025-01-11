@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import LogoImg from "../../assets/ghumnajam1.png";
 import { Button } from "@material-tailwind/react"; // Import Material Tailwind Button
-
+import Login from "../Login";
+import Register from "../Register";
 
 const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
   const navItems = [
@@ -56,26 +57,27 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
 
       {/* Buttons Section */}
       <div className="flex flex-col items-center space-y-4 px-6 mt-6">
-        <Button
-          variant="outlined"
-          size="lg"
-          className="w-full rounded-full text-black border-black"
-          ripple={true}
-        >
-          Sign Up
-        </Button>
-        <Button
-          variant="gradient"
-          size="lg"
-          className="w-full rounded-full"
-          ripple={true}
-        >
-          Login
-        </Button>
+        <NavLink to="/register">
+          <Button
+            variant="outlined"
+            size="lg"
+            className="w-full rounded-full text-black border-black"
+            ripple={true}
+          >
+            Sign Up
+          </Button>
+        </NavLink>
+        <NavLink to="/login">
+          <Button
+            variant="gradient"
+            size="lg"
+            className="w-full rounded-full"
+            ripple={true}
+          >
+            Login
+          </Button>
+        </NavLink>
       </div>
-      
-
-
 
       {/* Footer Section */}
       <div className="mb-6 px-6">
