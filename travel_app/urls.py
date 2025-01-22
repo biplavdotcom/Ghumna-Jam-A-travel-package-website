@@ -14,6 +14,9 @@ routers.register('booking',BookingViewSet,basename='booking')
 routers.register('payment',PaymentViewSet,basename='payment')
 routers.register('review',ReviewViewSet,basename='review')
 routers.register('wishlist',WishListViewSet,basename='wishlist')
+# routers.register('activity',WishListViewSet,basename='activity')
+# routers.register('tourguide',WishListViewSet,basename='tourguide')
+
 
 urlpatterns = [
     
