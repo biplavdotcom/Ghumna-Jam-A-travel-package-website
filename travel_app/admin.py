@@ -91,15 +91,15 @@ class ActivityAdmin(admin.ModelAdmin):
 
 @admin.register(TravelPackage)
 class TravelPackageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'location', 'price', 'duration', 'difficulty_level', 'is_featured')
-    list_filter = ('difficulty_level', 'is_featured', 'available_from', 'available_to')
+    list_display = ('name', 'location', 'price', 'duration', 'difficulty_level')
+    list_filter = ('difficulty_level', 'available_from', 'available_to')
     search_fields = ('name', 'location', 'description')
-    list_editable = ('price', 'is_featured')
+    list_editable = ('price',)
     filter_horizontal = ('hotels', 'activities')
     list_per_page = 20
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'description', 'location', 'image', 'is_featured')
+            'fields': ('name', 'description', 'location', 'image')
         }),
         ('Availability & Pricing', {
             'fields': ('price', 'available_from', 'available_to', 'duration')

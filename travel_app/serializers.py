@@ -47,7 +47,7 @@ class TravelPackageSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'price', 'available_from', 'available_to',
                  'location', 'features', 'duration', 'max_participants', 'difficulty_level',
                  'included_services', 'excluded_services', 'meeting_point', 'image',
-                 'hotels', 'activities', 'tour_guide', 'is_featured', 'cancellation_policy']
+                 'hotels', 'activities', 'tour_guide',  'cancellation_policy']
 
 
 class SeasonalPriceSerializer(serializers.ModelSerializer):
@@ -59,16 +59,52 @@ class SeasonalPriceSerializer(serializers.ModelSerializer):
                  'price', 'discount_percentage']
 
 
-class BookingSerializer(serializers.ModelSerializer):
-    customer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
-    travel_package = serializers.PrimaryKeyRelatedField(queryset=TravelPackage.objects.all())
+# class BookingSerializer(serializers.ModelSerializer):
+#     customer = serializers.PrimaryKeyRelatedField(read_only=True)
+#     travel_package = serializers.PrimaryKeyRelatedField(queryset=TravelPackage.objects.all())
 
+#     class Meta:
+#         model = Booking
+#         fields = ['id', 'customer', 'travel_package', 'booking_date', 'status',
+#                  'payment_status', 'travel_date', 'number_of_travelers',
+#                  'special_requests', 'total_amount', 'cancellation_reason',
+#                  'emergency_contact']
+class TravelPackageMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelPackage
+        fields = ['id', 'name', 'price']
+
+class CustomerMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['id', 'first_name', 'last_name']
+
+class BookingSerializer(serializers.ModelSerializer):
+    travel_package_details = TravelPackageMinimalSerializer(source='travel_package', read_only=True)
+    customer_details = CustomerMinimalSerializer(source='customer', read_only=True)
+    
     class Meta:
         model = Booking
-        fields = ['id', 'customer', 'travel_package', 'booking_date', 'status',
-                 'payment_status', 'travel_date', 'number_of_travelers',
-                 'special_requests', 'total_amount', 'cancellation_reason',
-                 'emergency_contact']
+        fields = [
+            'id', 'customer', 'customer_details',
+            'travel_package', 'travel_package_details',
+            'booking_date', 'status', 'payment_status',
+            'travel_date', 'number_of_travelers',
+            'special_requests', 'total_amount',
+            'cancellation_reason', 'emergency_contact'
+        ]
+        extra_kwargs = {
+            'customer': {'write_only': True},
+            'travel_package': {'write_only': True},
+        }
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        if request and hasattr(request.user, 'customer'):
+            validated_data['customer'] = request.user.customer
+        return super().create(validated_data)
+    
+  
 
 
 class PaymentSerializer(serializers.ModelSerializer):

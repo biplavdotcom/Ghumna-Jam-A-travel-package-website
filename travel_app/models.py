@@ -58,7 +58,7 @@ class TourGuide(models.Model):
     experience_years = models.PositiveIntegerField()
     languages = models.JSONField(default=list)
     specialties = models.JSONField(default=list)
-    certification = models.FileField(upload_to='guide_certifications/', blank=True)
+    certification = models.FileField(upload_to='guide_certifications/', blank=True, null=True)
     availability_status = models.BooleanField(default=True)
     hourly_rate = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -77,13 +77,14 @@ class Hotel(models.Model):
     features = models.JSONField(default=dict, blank=True)  # Example: {"wifi": True, "pool": False}
     contact_number=models.CharField(max_length=20,blank=True,null=True)
     email = models.EmailField(blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True, help_text="The hotel's website URL : https://www.hotelwebsite.com")  # Example: "https://www.hotelwebsite.com"
     check_in_time = models.TimeField(default='14:00')
     check_out_time = models.TimeField(default='12:00')
     total_rooms = models.PositiveIntegerField(default=0)
     available_rooms = models.PositiveIntegerField(default=0)
     rating = models.FloatField(
-        validators=[MinValueValidator(1.0), MaxValueValidator(5.0)], blank=True, null=True
+        validators=[MinValueValidator(1.0), MaxValueValidator(5.0)], blank=True, null=True,
+        help_text="Hotel rating from 1.0 to 5.0 stars"
     )
     image=models.ImageField(upload_to='hotel_images/',blank=True,null=True)
     room_types = models.JSONField(default=dict)  # {"standard": 10, "deluxe": 5, "suite": 2}
@@ -110,7 +111,7 @@ class Activity(models.Model):
     min_participants = models.PositiveIntegerField(default=1)
     max_participants = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    equipment_provided = models.JSONField(default=list)
+    equipment_provided = models.JSONField(default=list, help_text='Example: ["helmet", "harness", "ropes"]')
     safety_guidelines = models.TextField()
 
     def __str__(self):
@@ -142,7 +143,6 @@ class TravelPackage(models.Model):
     hotels = models.ManyToManyField(Hotel, related_name='travel_packages', blank=True)
     activities = models.ManyToManyField(Activity, related_name='travel_packages')
     tour_guide = models.ForeignKey(TourGuide, on_delete=models.SET_NULL, null=True, blank=True)
-    is_featured = models.BooleanField(default=False)
     cancellation_policy = models.TextField(default="Standard 24-hour cancellation policy applies")
     
     def __str__(self):
@@ -207,12 +207,12 @@ class Booking(models.Model):
     special_requests = models.TextField(blank=True, null=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     cancellation_reason = models.TextField(blank=True, null=True)
-    emergency_contact = models.JSONField(default=dict)  # {"name": "", "relation": "", "phone": ""}
+    emergency_contact = models.JSONField(default=dict,blank=True,null=True)  # {"name": "", "relation": "", "phone": ""}
     
     def save(self, *args, **kwargs):
         if not self.pk:  # On booking creation
-            self.price = self.travel_package.get_seasonal_price(self.travel_date)
-            self.total_amount = self.price * self.number_of_travelers
+            seasonal_price = self.travel_package.get_seasonal_price(self.travel_date)
+            self.total_amount = seasonal_price * self.number_of_travelers
         super().save(*args, **kwargs)
     
     def __str__(self):
@@ -226,9 +226,9 @@ class Payment(models.Model):
     
     PAYMENT_METHOD_CHOICES=[
         ("ESEWA","ESEWA"),
-        ("Khalti","Khalti"),
-        ("Google Pay","Google Pay"),
-        ("Bank Transfer","Bank Transfer"),
+        # ("Khalti","Khalti"),
+        # ("Google Pay","Google Pay"),
+        # ("Bank Transfer","Bank Transfer"),
         ("Credit Card", "Credit Card"),
         
     ]    
@@ -259,7 +259,7 @@ class Review(models.Model):
    
     user=models.ForeignKey(User,on_delete=models.CASCADE, related_name="reviews")
     travel_package=models.ForeignKey(TravelPackage, on_delete= models.CASCADE , related_name="reviews")
-    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])   
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment=models.TextField(blank=True,null=True)
     review_date=models.DateTimeField(auto_now_add=True)
     reply=models.TextField(blank=True,null=True)
