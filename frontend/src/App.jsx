@@ -12,23 +12,22 @@ import Register from "./component/Register";
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/discover" element={<Discover />} />
-            <Route path="/blogs/:id" element={<DiscoverDetails />} />
-            <Route path="/places" element={<PlacesRoute />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NoPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} /> {/* Default route */}
+          <Route path="home" element={<Home />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="discover" element={<Discover />} />
+          <Route path="blogs/:id" element={<DiscoverDetails />} />
+          <Route path="places" element={<PlacesRoute />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<NoPage />} /> {/* 404 route */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
+
 export default App;
