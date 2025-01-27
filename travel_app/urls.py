@@ -8,12 +8,15 @@ routers=SimpleRouter()
 # routers.register('user',UserViewSet,basename='user')
 routers.register('customer',CustomerViewSet,basename='customer')
 routers.register('hotel',HotelViewSet,basename='hotel')
-routers.register('seasons',SeasonalPriceViewSet,basename='seasons')
+# routers.register('seasons',SeasonalPriceViewSet,basename='seasons')
 routers.register('travelpackage',TravelPackageViewSet,basename='travelpackage')
 routers.register('booking',BookingViewSet,basename='booking')
 routers.register('payment',PaymentViewSet,basename='payment')
 routers.register('review',ReviewViewSet,basename='review')
 routers.register('wishlist',WishListViewSet,basename='wishlist')
+routers.register('activity',ActivityViewSet,basename='activity')
+routers.register('tourguide',TourGuideViewSet,basename='tourguide')
+
 
 urlpatterns = [
     
