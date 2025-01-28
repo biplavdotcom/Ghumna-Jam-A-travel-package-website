@@ -1,32 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, clearError } from '../store/authSlice';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error, isAuthenticated } = useSelector((state) => state.auth);
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+    return () => {
+      dispatch(clearError());
+    };
+  }, [isAuthenticated, navigate, dispatch]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post("http://localhost:8000/api/v1/login", {
-        email,
-        password,
-      });
-
-      // Store the token in localStorage or state
-      setToken(response.data.token);
-      localStorage.setItem("token", response.data.token); // Store token in localStorage
-      setError(""); // Clear error if login successful
-      navigate("/home"); // Redirect to home page
-    } catch (err) {
-      setError(err.response?.data?.error || "Invalid email or password");
-      setToken(""); // Clear token if error occurs
-    }
+    dispatch(loginUser({ email, password }));
   };
 
   return (
@@ -57,8 +53,9 @@ const Login = () => {
         <button
           type="submit"
           className="w-full bg-gray-900 text-white py-2 rounded-md mt-4"
+          disabled={loading}
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
       <p className="mt-4 text-center">

@@ -1,38 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser, clearError } from '../store/authSlice';
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [formError, setFormError] = useState("");
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setFormError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setFormError("Passwords do not match");
       return;
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/register",
-        {
-          email,
-          password,
-          confirm_password: confirmPassword,
-        }
-      );
-      setMessage(response.data.message || "User registered successfully");
-      setError(""); // Clear error if successful
-      navigate("/login"); // Navigate to login page
-    } catch (err) {
-      setError(err.response?.data?.detail || "Something went wrong");
-      setMessage(""); // Clear success message if error occurs
+    const result = await dispatch(registerUser({ 
+      email, 
+      password,
+      confirm_password: confirmPassword  // Add this field
+    }));
+    
+    if (result.payload && !result.error) {
+      navigate('/login');
     }
   };
 
@@ -70,13 +73,15 @@ const Register = () => {
             required
           />
         </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        {message && <p className="text-green-500 text-sm">{message}</p>}
+        {(error || formError) && (
+          <p className="text-red-500 text-sm mb-4">{error || formError}</p>
+        )}
         <button
           type="submit"
           className="w-full bg-gray-900 text-white py-2 rounded-md mt-4"
+          disabled={loading}
         >
-          Sign Up
+          {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
       <p className="mt-4 text-center">
