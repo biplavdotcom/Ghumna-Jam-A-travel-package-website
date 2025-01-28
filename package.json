@@ -1,5 +1,15 @@
+
 {
-  "dependencies": {
+  "name": "ghumna-jam",
+  "version": "1.0.0",
+  "scripts": {
+    "backend": "python manage.py runserver",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
     "axios": "^1.7.9"
+
   }
 }
