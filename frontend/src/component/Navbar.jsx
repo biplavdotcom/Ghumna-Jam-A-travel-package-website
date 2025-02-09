@@ -4,6 +4,7 @@ import LogoImg from "../assets/ghumnajam1.png";
 import { Button } from "@material-tailwind/react";
 import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
 import ResponsiveMenu from "../component/Navbar/ResponsiveMenu";
+import Logout from "./Logout";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -60,6 +61,7 @@ const Navbar = () => {
                 Login
               </Button>
             </NavLink>
+            <Logout />
           </div>
 
           {/* Mobile Menu Icon */}
