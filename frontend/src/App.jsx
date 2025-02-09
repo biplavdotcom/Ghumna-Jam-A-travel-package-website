@@ -11,7 +11,7 @@ import PlacesRoute from "./pages/PlacesRoute";
 import NoPage from "./pages/NoPage";
 import Login from "./component/Login";
 import Register from "./component/Register";
-
+import Logout from "./component/Logout";
 const App = () => {
   return (
     <Provider store={store}>
@@ -26,6 +26,7 @@ const App = () => {
             <Route path="places" element={<PlacesRoute />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NoPage />} /> {/* 404 route */}
           </Route>
         </Routes>
