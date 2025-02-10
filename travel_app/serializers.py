@@ -9,7 +9,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ['id', 'user', 'first_name', 'middle_name', 'last_name', 'address', 
                  'contact_number', 'email', 'date_of_birth', 'gender', 'loyalty_points',
-                 'preferred_payment_method']
+                 'preferred_payment_method','profile_picture']
 
 
 class TourGuideSerializer(serializers.ModelSerializer):

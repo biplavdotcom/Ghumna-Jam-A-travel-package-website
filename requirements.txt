@@ -15,3 +15,16 @@ sqlparse==0.5.3
 tzdata==2025.1
 uritemplate==4.1.1
 wheel==0.45.1
+
+# {
+#   "name": "ghumna-jam",
+#   "version": "1.0.0",
+#   "scripts": {
+#     "backend": "python manage.py runserver",
+#     "frontend": "cd frontend && npm start",
+#     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+#   },
+#   "devDependencies": {
+#     "concurrently": "^8.2.0"
+#   }
+# }

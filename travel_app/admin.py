@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'contact_number', 'email', 'loyalty_points')
+    list_display = ('user', 'first_name', 'last_name', 'contact_number', 'email', 'loyalty_points','profile_picture')
     list_filter = ('gender', 'preferred_payment_method')
     search_fields = ('first_name', 'last_name', 'email', 'contact_number')
     list_per_page = 20
