@@ -28,14 +28,14 @@ const Register = () => {
       return;
     }
 
-    const result = await dispatch(registerUser({ 
-      email, 
-      password,
-      confirm_password: confirmPassword  // Add this field
-    }));
+    console.log("Registering user:", { email, password, confirmPassword });
+
+    const result = await dispatch(registerUser({ email, password, confirm_password: confirmPassword }));
     
-    if (result.payload && !result.error) {
-      navigate('/login');
+    if (result.error) {
+      setFormError(result.error.message || "Registration failed");
+    } else {
+      navigate('/'); // Redirect to login after successful registration
     }
   };
 

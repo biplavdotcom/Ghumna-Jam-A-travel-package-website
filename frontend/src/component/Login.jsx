@@ -10,6 +10,7 @@ const Login = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setError] = useState("");
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -22,7 +23,15 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    setError(""); // Clear previous error messages
+
+    const result = await dispatch(loginUser({ email, password }));
+
+    if (result.error) {
+      setError( "Login failed. Please check your credentials.");
+    } else {
+      navigate('/home'); // Redirect to home after successful login
+    }
   };
 
   return (
@@ -37,6 +46,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Email"
           />
         </div>
         <div className="mb-4">
@@ -47,9 +57,10 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password"
           />
         </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
         <button
           type="submit"
           className="w-full bg-gray-900 text-white py-2 rounded-md mt-4"

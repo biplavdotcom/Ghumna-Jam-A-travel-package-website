@@ -8,11 +8,12 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name', 'contact_number', 'email', 'loyalty_points','profile_picture')
     list_filter = ('gender', 'preferred_payment_method')
     search_fields = ('first_name', 'last_name', 'email', 'contact_number')
+    list_editable=('first_name', 'last_name', 'contact_number', 'email', 'loyalty_points','profile_picture')
     list_per_page = 20
     readonly_fields = ('loyalty_points',)
     fieldsets = (
         ('Personal Information', {
-            'fields': ('user', 'first_name', 'middle_name', 'last_name', 'gender', 'date_of_birth')
+            'fields': ('user', 'first_name', 'middle_name', 'last_name', 'gender', 'date_of_birth','profile_picture')
         }),
         ('Contact Details', {
             'fields': ('email', 'contact_number', 'address')
