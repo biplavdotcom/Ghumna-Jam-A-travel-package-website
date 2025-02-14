@@ -9,11 +9,11 @@ const api = axios.create({
   },
 });
 
-// Add token to requests if it exists
+// Update the interceptor to ensure token format matches backend expectation
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
-    config.headers.Authorization = `Token ${token}`;
+    config.headers.Authorization = `Token ${token}`; // Make sure to use 'Token' prefix
   }
   return config;
 });

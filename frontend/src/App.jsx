@@ -12,6 +12,7 @@ import NoPage from "./pages/NoPage";
 import Login from "./component/Login";
 import Register from "./component/Register";
 import Logout from "./component/Logout";
+import FillDetail from "./component/FillDetail";
 const App = () => {
   return (
     <Provider store={store}>
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="fill-detail" element={<FillDetail />} />
             <Route path="*" element={<NoPage />} /> {/* 404 route */}
           </Route>
         </Routes>
